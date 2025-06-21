@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, MicOff } from 'lucide-react';
-import shivohiniLogo from '../assets/shivohini.png'; // adjust the path as needed
- 
+import shivohiniLogo from '../assets/logo.png'; // adjust the path as needed
+
 const ElevenLabsInterface = () => {
   const [logoLoaded, setLogoLoaded] = useState(false);
   const [showMicButton, setShowMicButton] = useState(false);
@@ -10,8 +10,14 @@ const ElevenLabsInterface = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    const timer1 = setTimeout(() => setLogoLoaded(true), 500);
-    const timer2 = setTimeout(() => setShowMicButton(true), 1500);
+    const timer1 = setTimeout(() => {
+      setLogoLoaded(true);
+    }, 500);
+
+    const timer2 = setTimeout(() => {
+      setShowMicButton(true);
+    }, 1500);
+
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
@@ -33,12 +39,12 @@ const ElevenLabsInterface = () => {
       </div>
 
       {/* Logo Section */}
-      {/* <motion.div
+      <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{
           opacity: logoLoaded ? 1 : 0,
           scale: logoLoaded ? 1 : 0.5,
-          y: logoLoaded ? -100 : 0
+          y: logoLoaded ? -40 : 0
         }}
         transition={{
           duration: 0.8,
@@ -48,43 +54,20 @@ const ElevenLabsInterface = () => {
         className="mb-8"
       >
         <motion.h1
-          className="text-4xl md:text-6xl font-bold text-white tracking-tight"
-          initial={{ letterSpacing: "0.2em" }}
-          animate={{ letterSpacing: logoLoaded ? "0.05em" : "0.2em" }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-3xl md:text-4xl font-bold text-yellow-400 tracking-wide text-center"
+          initial={{ opacity: 0, scale: 0.3, y: 0 }}
+          animate={{ opacity: 1, scale: 1, y: -10 }}
+          transition={{
+            duration: 1,
+            ease: "easeOut",
+            delay: 0.3,
+            type: "spring",
+            stiffness: 100,
+          }}
         >
-          ElevenLabs
+          SHIVOHINI TECH-AI
         </motion.h1>
-      </motion.div> */}
-      <motion.div
-  initial={{ opacity: 0, scale: 0.5 }}
-  animate={{
-    opacity: logoLoaded ? 1 : 0,
-    scale: logoLoaded ? 1 : 0.5,
-    y: logoLoaded ? -40 : 0
-  }}
-  transition={{
-    duration: 0.8,
-    ease: "easeOut",
-    delay: 0.2
-  }}
-  className="mb-2"
->
-  <motion.img
-  src={shivohiniLogo}
-  alt="Shivohini Logo"
-  className="w-40 md:w-40 object-contain rounded-md"
-  initial={{ opacity: 0, scale: 0.3, y: 0 }}
-  animate={{ opacity: 1, scale: 1, y: -10 }}
-  transition={{
-    duration: 1,
-    ease: "easeOut",
-    delay: 0.3,
-    type: "spring",
-    stiffness: 100,
-  }}
-/>
-</motion.div>
+      </motion.div>
 
       {/* Main Voice Interface */}
       <div className="relative z-10 flex flex-col items-center">
@@ -98,9 +81,9 @@ const ElevenLabsInterface = () => {
             duration: 0.6,
             ease: "easeOut"
           }}
-          className="relative w-80 h-80 mb-8"
+          className="relative w-80 h-80 mb-5"
         >
-          {/* Outer rotating gradient ring */}
+          {/* Outer rotating ring */}
           <motion.div
             className="absolute inset-0 rounded-full bg-gradient-conic from-green-400 via-pink-500 via-purple-500 to-green-400 p-1 shadow-2xl shadow-purple-500/30"
             animate={{ rotate: isRecording ? 360 : 0 }}
@@ -113,55 +96,56 @@ const ElevenLabsInterface = () => {
             <div className="w-full h-full rounded-full bg-gray-900"></div>
           </motion.div>
 
-          {/* Inner gradient circle */}
-          <motion.div
-            className="absolute inset-4 rounded-full bg-gradient-to-br from-cyan-400/30 via-blue-500/30 to-indigo-600/30 backdrop-blur-sm shadow-xl shadow-cyan-400/20 border border-cyan-400/20"
-            animate={{ rotate: isRecording ? -360 : 0 }}
-            transition={{
-              duration: 3,
-              repeat: isRecording ? Infinity : 0,
-              ease: "linear"
-            }}
-          ></motion.div>
+          {/* Inner static circle */}
+          <div className="absolute inset-4 rounded-full bg-gradient-to-br from-cyan-200/50 via-blue-300/50 to-indigo-400/50 backdrop-blur-sm shadow-xl shadow-cyan-400/20 border border-cyan-400/30 flex flex-col items-center justify-center gap-4">
+            <div className="flex items-center justify-center">
+              <img
+                src={shivohiniLogo}
+                alt="Shivohini Logo"
+                className="w-60 h-40 object-contain rounded-lg opacity-90"
+              />
+            </div>
 
-          {/* Mic Button */}
-          <motion.button
-            onClick={handleMicClick}
-            className="absolute inset-0 m-auto w-38 h-16 bg-black/80 backdrop-blur-sm rounded-full flex items-center justify-center gap-3 text-white hover:bg-black/90 transition-all duration-300 border border-white/20 z-10"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: showMicButton ? 1 : 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <motion.div
-              animate={{ scale: isRecording ? [1, 1.2, 1] : 1 }}
-              transition={{ duration: 0.5, repeat: isRecording ? Infinity : 0 }}
+            <motion.button
+              onClick={handleMicClick}
+              className="w-36 h-12 bg-black/80 backdrop-blur-sm rounded-full flex items-center justify-center gap-2 text-white hover:bg-black/90 transition-all duration-300 border border-white/20 z-10"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: showMicButton ? 1 : 0
+              }}
+              transition={{ delay: 0.3 }}
             >
-              {isRecording ? (
-                <MicOff className="w-6 h-6 text-red-400" />
-              ) : (
-                <Mic className="w-6 h-6 text-white" />
-              )}
-            </motion.div>
-            <span className="text-sm font-medium ">
-              {isRecording ? 'Stop' : 'Call AI agent'}
-            </span>
-          </motion.button>
+              <motion.div
+                animate={{ scale: isRecording ? [1, 1.2, 1] : 1 }}
+                transition={{ duration: 0.5, repeat: isRecording ? Infinity : 0 }}
+              >
+                {isRecording ? (
+                  <MicOff className="w-5 h-5 text-red-400" />
+                ) : (
+                  <Mic className="w-5 h-5 text-white" />
+                )}
+              </motion.div>
+              <span className="text-xs font-medium">
+                {isRecording ? 'Stop' : 'Call AI agent'}
+              </span>
+            </motion.button>
+          </div>
         </motion.div>
 
-        {/* Powered by text
+        {/* Powered by */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: showMicButton ? 1 : 0, y: showMicButton ? 0 : 20 }}
           transition={{ delay: 0.8, duration: 0.5 }}
-          className="text-gray-400 text-sm"
+          className="text-gray-400 text-sm mt-4"
         >
-          Powered by <span className="text-white font-medium">ElevenLabs Conversational AI</span>
-        </motion.div> */}
+          Powered by <span className="text-white font-medium">Shivohini TechAI</span>
+        </motion.div>
       </div>
 
-      {/* Popup */}
+      {/* Recording Status Popup */}
       <AnimatePresence>
         {showPopup && (
           <motion.div
@@ -181,7 +165,7 @@ const ElevenLabsInterface = () => {
         )}
       </AnimatePresence>
 
-      {/* Particles */}
+      {/* Ambient particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <motion.div
